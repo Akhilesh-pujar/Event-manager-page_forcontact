@@ -1,44 +1,58 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
+import {motion} from "framer-motion"
+import ImageCaursel from '../components/ImageCaursel';
+import Description from '../components/Description';
+
 
 const Home_page = () => {
   return (
-    <div className='bg-[#0D1F23] h-screen'>
-        <header className="text-gray-600 body-font ">
-    <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-      <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-   
-        <span className="ml-3 text-xl text-white"><span className='text-2xl text-green-500 font-medium'>Pay</span>tm</span>
-      </Link>
-      <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-       
-   
-
+    <div className='bg-[#5fbda533] h-screen'>
+         <header className="px-4 lg:px-6 h-14 flex items-center">
+         <NavLink to='/' className="w-16 h-14 object-contain items-center  text-white flex font-semibold justify-center rounded-lg">
+        <p className=' bg-gradient-to-r from-[#00c6ff] to-[#0072ff] bg-clip-text text-transparent p-0' >Nayana</p>
+      </NavLink>
+      <motion.div
+       initial={{
+        x:500,
+        opacity:0,
+        scale:0.5
+      }} 
+      animate={{
+        x:0,
+        opacity:1,
+        scale:1
+      }}
+      transition={{
+        duration:1.5,
+      }}
+      className='flex flex-row items-center cursor-pointer'>
+      
+      <nav className='flex text-lg gap-4 justify-end font-medium text-black'>
+        <NavLink to='/home/signin' >
+         Sign in
+        </NavLink>
+        <NavLink to='/home/signup' className= "text-black">
+          Sign up
+        </NavLink>
       </nav>
-      <button className="inline-flex items-center bg-green-500 font-regular text-black  border-0 py-1 px-3 focus:outline-none hover:bg-green-500 rounded text-base mt-4 md:mt-0">
-      <Link to="/home/signup" className="mr-5 hover:text-gray-900">Go to Sign up page</Link>
-      </button>
-    </div>
-  </header>
+      </motion.div>
+      </header>
 
-  <section className="text-gray-600 body-font">
-  <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-    <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-      <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">This is a simple Authentication app
-
-      </h1>
-      <p className="mb-8 leading-relaxed text-gray-200">Not a complex architecture just simple tasks like sending money and receving money , you can create your own accont and send money to users that are Already there 
-        .I'm making Authentication application with mern.</p>
-      <div className="flex justify-center">
-        <button className="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg"><Link to="https://3-d-portfolio-liard-one.vercel.app/">My portfolio</Link></button>
-        <button className="ml-4 inline-flex text-white bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-500 rounded text-lg"><Link to="https://github.com/Akhilesh-pujar">Git hub</Link></button>
-      </div>
-    </div>
-    <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-     
-    </div>
-  </div>
-</section>
+        <section className="w-full h-[70dvh] relative overflow-hidden">
+          {/* <img
+            src="/party.jpg"
+            alt="Event Management"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          /> */}
+          
+          <ImageCaursel/>
+  
+         
+ 
+        </section>
+      
 
     </div>
     

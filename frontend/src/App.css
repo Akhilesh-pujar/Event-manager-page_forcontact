@@ -433,3 +433,15 @@ footer .banner .tag div button {
     grid-gap: 20px;
   }
 }
+
+/* src/App.css */
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #cfd6e2;
+  padding: 20px;
+  color: white;
+}
+
