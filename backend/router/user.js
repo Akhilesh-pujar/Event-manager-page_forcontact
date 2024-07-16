@@ -1,6 +1,8 @@
 import express from "express"
+import nodemailer from "nodemailer"
 
 import { User } from "../models/userschema.js";
+import { Subscribeduser } from "../models/userschema.js";
 import jwt from "jsonwebtoken";
 import zod from "zod"
 import JWT_SECRET from "../config.js";
@@ -22,6 +24,9 @@ const updateSchema = zod.object({
     password: zod.string().optional(),
     firstName: zod.string().optional(),
     lastName: zod.string().optional(),
+})
+const subscribeSchema = zod.object({
+    email:zod.string().email()
 })
 
 const userRouter = express.Router();
@@ -127,6 +132,51 @@ userRouter.get("/", authMiddleware, async(req, res) => {
         }
     })
     res.json(filterdUsers); 
+})
+
+
+  
+userRouter.post("/subscribe", authMiddleware, async(req,res)=>{
+
+    const email = req.body;
+    
+    const { success } = subscribeSchema.safeParse(email);
+    const dbCheck = await User.findOne({ username: email.email });
+    
+    if (success && !dbCheck) {
+        const user = await Subscribeduser.create(email);
+        const token = jwt.sign({ userId: user._id }, JWT_SECRET);
+        res.json({ msg: "You have Subscribed sucessfully", token: token });
+    } else {
+        res.status(411).json({ msg: "email already taken / Incorrect inputs" });
+    }
+
+    // Send notification email
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'akhileshpujari163@gmail.com',
+        pass: 'your-email-password',
+      },
+    });
+  
+    const mailOptions = {
+      from: 'akhileshpujar796@gmail.com',
+      to: email,
+      subject: 'Subscription Confirmation',
+      text: 'Thank you for subscribing to our newsletter!',
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send({ message: 'An error occurred. Please try again.' });
+      } else {
+        res.send({ message: 'Subscription successful! Please check your email.' });
+      }
+    });
+    
+
 })
 
 export default userRouter;

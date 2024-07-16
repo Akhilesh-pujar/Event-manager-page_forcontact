@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { usernameState, passwordState } from "../states";
 import Loader from "../components/Loader";
+import toast from "react-hot-toast";
 
 export default function Signin(){
     
@@ -38,8 +39,8 @@ export default function Signin(){
 
             setShowLoader(false);
 
-            alert(data.msg);
             
+            toast.success(data.message);
             localStorage.setItem("myToken", data.token);
 
             navigate("/home/main-page");
@@ -47,6 +48,7 @@ export default function Signin(){
         }catch(err) {
             console.log("Request Crashed!");
         }
+        
     }
     
     function navigateToSignup(){

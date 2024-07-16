@@ -31,7 +31,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <nav>
-      <div className="logo">KING's</div>
+      <div className="logo">Nayana</div>
 
       {showLoader ? 
             <div className="h-full mr-5 flex items-center">

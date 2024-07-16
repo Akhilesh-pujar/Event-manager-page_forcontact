@@ -30,4 +30,9 @@ const userSchema = mongoose.Schema({
     }
 
 })
+
+const emailSchema = new mongoose.Schema({
+    email: String,
+  });
+  export const Subscribeduser = mongoose.model("subscribeduser", emailSchema)
 export const User = mongoose.model("authenticatedUser",userSchema)
